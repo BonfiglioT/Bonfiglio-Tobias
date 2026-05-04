@@ -1,0 +1,616 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Nunito:wght@300;400;600&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  .tobi {
+    font-family: 'Nunito', sans-serif;
+    background: #FFF8F2;
+    color: #3D1C02;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  .tobi-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 40px;
+    background: #FFFFFF;
+    border-bottom: 0.5px solid rgba(210,120,50,0.15);
+    position: sticky; top: 0; z-index: 10;
+    box-shadow: 0 2px 20px rgba(210,120,50,0.07);
+  }
+  .tobi-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 21px;
+    color: #B84A10;
+    letter-spacing: 0.3px;
+  }
+  .tobi-logo em { font-style: italic; color: #E8843A; }
+  .tobi-nav-links { display: flex; gap: 28px; list-style: none; }
+  .tobi-nav-links a {
+    font-size: 12px; letter-spacing: 1.2px; text-transform: uppercase;
+    color: #7A3D18; text-decoration: none; font-weight: 600;
+    transition: color 0.2s;
+  }
+  .tobi-nav-links a:hover { color: #E8843A; }
+
+  /* HERO */
+  .tobi-hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 460px;
+    background: linear-gradient(135deg, #FFF0E0 0%, #FFE4C4 60%, #FFDAB0 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  .tobi-hero::before {
+    content: '';
+    position: absolute;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: rgba(232,132,58,0.08);
+    top: -120px; right: -80px;
+    pointer-events: none;
+  }
+  .tobi-hero-text {
+    padding: 64px 40px 64px 52px;
+    display: flex; flex-direction: column;
+    justify-content: center; gap: 18px;
+    position: relative; z-index: 1;
+  }
+  .tobi-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    color: #C05A20; font-weight: 600;
+  }
+  .tobi-tag::before {
+    content: ''; display: inline-block;
+    width: 20px; height: 1.5px; background: #E8843A; border-radius: 2px;
+  }
+  .tobi-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px; line-height: 1.15;
+    color: #3D1C02; font-weight: 600;
+  }
+  .tobi-hero h1 em { font-style: italic; color: #C05A20; }
+  .tobi-hero p {
+    font-size: 14px; line-height: 1.85;
+    color: #7A4020; max-width: 340px;
+  }
+  .tobi-btn {
+    display: inline-block; margin-top: 6px;
+    padding: 13px 30px;
+    background: #C05A20; color: #FFF8F2;
+    font-size: 11px; letter-spacing: 1.8px; text-transform: uppercase;
+    font-weight: 600; border: none; cursor: pointer;
+    border-radius: 2px; width: fit-content;
+    transition: background 0.2s, transform 0.15s;
+    font-family: 'Nunito', sans-serif;
+  }
+  .tobi-btn:hover { background: #A04010; transform: translateY(-1px); }
+
+  .tobi-hero-visual {
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .tobi-rings {
+    position: relative; width: 300px; height: 300px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .tobi-ring {
+    position: absolute; border-radius: 50%;
+    border: 1px solid rgba(192,90,32,0.2);
+  }
+  .tobi-ring:nth-child(1) { width: 300px; height: 300px; }
+  .tobi-ring:nth-child(2) { width: 230px; height: 230px; border-color: rgba(192,90,32,0.3); }
+  .tobi-ring:nth-child(3) {
+    width: 160px; height: 160px;
+    background: #FFFFFF;
+    border-color: rgba(192,90,32,0.15);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 8px 32px rgba(192,90,32,0.15);
+  }
+  .tobi-ring-icon { font-size: 64px; }
+  .tobi-float {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 16px rgba(192,90,32,0.15);
+    font-size: 24px;
+  }
+  .tobi-float.f1 { width: 56px; height: 56px; top: 20px; right: 20px; }
+  .tobi-float.f2 { width: 48px; height: 48px; bottom: 40px; left: 20px; }
+  .tobi-float.f3 { width: 44px; height: 44px; top: 100px; left: 0; }
+
+  /* DIVIDER */
+  .tobi-wave {
+    background: #FFF8F2;
+    height: 6px;
+    background-image: repeating-linear-gradient(
+      90deg, #E8843A 0px, #E8843A 6px, transparent 6px, transparent 18px
+    );
+    opacity: 0.25;
+  }
+
+  /* MENU */
+  .tobi-section { padding: 56px 48px; }
+  .tobi-section-header {
+    text-align: center; margin-bottom: 40px;
+  }
+  .tobi-section-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px; font-weight: 400; color: #3D1C02;
+    margin-bottom: 6px;
+  }
+  .tobi-section-header h2 em { font-style: italic; color: #C05A20; }
+  .tobi-section-header p {
+    font-size: 13px; color: #A0603A; letter-spacing: 0.5px;
+  }
+
+  .tobi-menu-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  .tobi-card {
+    background: #FFFFFF;
+    border: 1px solid rgba(210,120,50,0.12);
+    border-radius: 12px;
+    padding: 28px 24px 24px;
+    position: relative;
+    cursor: pointer;
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    overflow: hidden;
+  }
+  .tobi-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #E8843A, #C05A20);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .tobi-card:hover {
+    border-color: rgba(210,120,50,0.35);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(192,90,32,0.1);
+  }
+  .tobi-card:hover::before { opacity: 1; }
+  .tobi-card-num {
+    position: absolute; top: 16px; right: 18px;
+    font-size: 11px; color: rgba(192,90,32,0.2);
+    font-family: 'Playfair Display', serif; font-style: italic;
+  }
+  .tobi-card-icon { font-size: 32px; margin-bottom: 14px; display: block; }
+  .tobi-card-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 19px; color: #3D1C02; margin-bottom: 8px; font-weight: 600;
+  }
+  .tobi-card-desc {
+    font-size: 12.5px; color: #A0603A; line-height: 1.75; margin-bottom: 18px;
+  }
+  .tobi-card-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    background: #FFF0E4;
+    color: #C05A20;
+    font-size: 10px; letter-spacing: 1px; text-transform: uppercase;
+    border-radius: 20px; font-weight: 600;
+  }
+  .tobi-card.especial {
+    background: linear-gradient(135deg, #FFF4EC, #FFE8D0);
+    border: 1.5px dashed rgba(192,90,32,0.3);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center; gap: 10px;
+  }
+
+  /* PEDIDO */
+  .tobi-pedido {
+    background: linear-gradient(135deg, #C05A20, #A04010);
+    padding: 52px 48px;
+  }
+  .tobi-pedido-inner {
+    display: flex; align-items: center;
+    justify-content: space-between; gap: 32px;
+  }
+  .tobi-pedido h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px; font-weight: 400; color: #FFF8F2; margin-bottom: 10px;
+  }
+  .tobi-pedido h3 em { font-style: italic; color: #FFDAB0; }
+  .tobi-pedido p { font-size: 13px; color: rgba(255,248,242,0.75); line-height: 1.7; }
+  .tobi-chips { display: flex; gap: 12px; flex-wrap: wrap; }
+  .tobi-chip {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 18px;
+    background: rgba(255,248,242,0.12);
+    border: 1px solid rgba(255,248,242,0.25);
+    border-radius: 30px;
+    font-size: 11px; letter-spacing: 1px; text-transform: uppercase;
+    color: #FFF8F2; font-weight: 600;
+  }
+
+  /* AMOR */
+  .tobi-amor {
+    padding: 48px;
+    text-align: center;
+    background: #FFF0E4;
+  }
+  .tobi-amor-icons {
+    display: flex; justify-content: center; gap: 40px; margin-bottom: 24px;
+  }
+  .tobi-amor-item { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .tobi-amor-item span:first-child { font-size: 28px; }
+  .tobi-amor-item span:last-child {
+    font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+    color: #A0603A; font-weight: 600;
+  }
+  .tobi-amor h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; font-weight: 400; color: #3D1C02;
+    font-style: italic;
+  }
+
+  /* FOOTER */
+  .tobi-footer {
+    background: #3D1C02;
+    padding: 24px 48px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .tobi-footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px; color: #E8843A; font-style: italic;
+  }
+  .tobi-footer-handle {
+    font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+    color: rgba(232,196,154,0.5);
+  }
+  .tobi-footer-tagline {
+    font-size: 11px; color: rgba(232,196,154,0.4); font-style: italic;
+  }
+
+  /* ── SISTEMA DE PÁGINAS ── */
+  .tobi-page { display: none; }
+  .tobi-page.active { display: block; }
+  .tobi-nav-links a.active { color: #E8843A !important; }
+
+  /* ── BOTÓN WHATSAPP NAV ── */
+  .tobi-btn-wa {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 9px 20px;
+    background: #25D366; color: #fff;
+    font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase;
+    font-weight: 600; border: none; cursor: pointer;
+    border-radius: 20px; text-decoration: none;
+    font-family: 'Nunito', sans-serif;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .tobi-btn-wa:hover { background: #1ebe5d; transform: translateY(-1px); }
+  .tobi-btn-wa svg { width: 14px; height: 14px; fill: white; flex-shrink: 0; }
+
+  /* ── PÁGINA MENÚ ── */
+  .menu-wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 52px 32px 72px;
+  }
+  .menu-titulo {
+    text-align: center;
+    margin-bottom: 44px;
+  }
+  .menu-titulo h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 34px; font-weight: 400; color: #3D1C02;
+    margin-bottom: 8px;
+  }
+  .menu-titulo h2 em { font-style: italic; color: #C05A20; }
+  .menu-titulo p {
+    font-size: 11px; letter-spacing: 1.8px; text-transform: uppercase;
+    color: #A0603A;
+  }
+  .menu-sec { margin-bottom: 28px; }
+  .menu-sec-head {
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 16px;
+    background: #FFF0E4;
+    border-left: 4px solid #C05A20;
+    margin-bottom: 12px;
+  }
+  .menu-sec-head span {
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    color: #3D1C02; font-weight: 600;
+  }
+  .menu-row {
+    display: flex; align-items: baseline; gap: 6px;
+    padding: 6px 4px;
+    border-bottom: 0.5px solid rgba(192,90,32,0.08);
+  }
+  .menu-row:last-child { border-bottom: none; }
+  .menu-name { font-size: 13.5px; color: #3D1C02; flex-shrink: 0; }
+  .menu-note {
+    font-size: 10.5px; color: #A0603A;
+    font-style: italic; flex-shrink: 0;
+  }
+  .menu-dots {
+    flex: 1;
+    border-bottom: 1px dotted rgba(192,90,32,0.3);
+    position: relative; top: -4px;
+    margin: 0 6px;
+  }
+  .menu-price {
+    font-size: 13.5px; color: #C05A20;
+    font-family: 'Playfair Display', serif;
+    font-weight: 600; flex-shrink: 0; white-space: nowrap;
+  }
+  .menu-price-ask {
+    font-size: 11px; color: #C8922A;
+    font-style: italic; flex-shrink: 0;
+  }
+  .menu-subnote {
+    font-size: 10.5px; color: #A0603A;
+    font-style: italic; margin: -6px 0 10px 6px;
+  }
+  .menu-two-col {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 0 24px;
+  }
+  .menu-wave {
+    height: 5px;
+    background-image: repeating-linear-gradient(
+      90deg, #E8843A 0px, #E8843A 5px, transparent 5px, transparent 16px
+    );
+    opacity: 0.2;
+    margin: 0 0 28px;
+  }
+  .menu-cta {
+    margin-top: 40px;
+    padding: 28px 32px;
+    background: linear-gradient(135deg, #C05A20, #A04010);
+    border-radius: 12px;
+    display: flex; align-items: center;
+    justify-content: space-between; gap: 24px;
+  }
+  .menu-cta p {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; font-weight: 400;
+    color: #FFF8F2; font-style: italic;
+  }
+  .menu-cta span {
+    font-size: 12px; color: rgba(255,248,242,0.7);
+    display: block; margin-top: 4px;
+    font-family: 'Nunito', sans-serif;
+  }
+
+</style>
+
+<div class="tobi">
+
+  <nav class="tobi-nav">
+    <div class="tobi-logo">pasteles <em>&</em> postres tobi</div>
+    <ul class="tobi-nav-links">
+      <li><a href="#" class="active" onclick="showPage('home',this);return false;">Inicio</a></li>
+      <li><a href="#" onclick="showPage('menu',this);return false;">Menú</a></li>
+    </ul>
+    <a class="tobi-btn-wa" href="https://wa.me/5493624206008" target="_blank">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.532 5.862L.057 23.486a.75.75 0 0 0 .916.932l5.803-1.498A11.954 11.954 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.713 9.713 0 0 1-4.953-1.355l-.355-.212-3.683.95.98-3.574-.232-.368A9.712 9.712 0 0 1 2.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>
+      Realizar pedido
+    </a>
+  </nav>
+  <!-- ═══════════ PÁGINA INICIO ═══════════ -->
+  <div id="page-home" class="tobi-page active">
+  <section class="tobi-hero">
+    <div class="tobi-hero-text">
+      <div class="tobi-tag">Pastelería artesanal · Chaco, Resistencia</div>
+      <h1>Dulce, <em>cálido</em><br>y hecho con<br>amor</h1>
+      <p>Tortas, cupcakes y postres a pedido. Cada preparación lleva el cuidado y el cariño de una cocina artesanal de verdad.</p>
+      <button class="tobi-btn" onclick="showPage('menu', document.querySelectorAll('.tobi-nav-links a')[1])">Ver nuestro menú ↗</button>
+    </div>
+    <div class="tobi-hero-visual">
+      <div class="tobi-rings">
+        <div class="tobi-ring"></div>
+        <div class="tobi-ring"></div>
+        <div class="tobi-ring"><span class="tobi-ring-icon">🎂</span></div>
+      </div>
+      <div class="tobi-float f1">🧁</div>
+      <div class="tobi-float f2">🥧</div>
+      <div class="tobi-float f3">🍪</div>
+    </div>
+  </section>
+
+  <div class="tobi-wave"></div>
+
+  <section class="tobi-section">
+    <div class="tobi-section-header">
+      <h2>Nuestros <em>productos</em></h2>
+      <p>Todo elaborado a mano, con ingredientes seleccionados y mucho cariño</p>
+    </div>
+    <div class="tobi-menu-grid">
+      <div class="tobi-card">
+        <span class="tobi-card-num">01</span>
+        <span class="tobi-card-icon">🎂</span>
+        <div class="tobi-card-name">Tortas</div>
+        <div class="tobi-card-desc">Personalizadas para cumpleaños, casamientos y eventos. Rellenos y coberturas a elección.</div>
+        <span class="tobi-card-badge">A pedido</span>
+      </div>
+      <div class="tobi-card">
+        <span class="tobi-card-num">02</span>
+        <span class="tobi-card-icon">🧁</span>
+        <div class="tobi-card-name">Cupcakes</div>
+        <div class="tobi-card-desc">Decorados a mano, ideales para regalos y mesas dulces. Variedad de sabores.</div>
+        <span class="tobi-card-badge">A pedido</span>
+      </div>
+      <div class="tobi-card">
+        <span class="tobi-card-num">03</span>
+        <span class="tobi-card-icon">🥧</span>
+        <div class="tobi-card-name">Tartas</div>
+        <div class="tobi-card-desc">Masa casera, rellenos dulces y salados. Tartas de fruta, ricota, lemon pie y más.</div>
+        <span class="tobi-card-badge">A pedido</span>
+      </div>
+      <div class="tobi-card">
+        <span class="tobi-card-num">04</span>
+        <span class="tobi-card-icon">🍮</span>
+        <div class="tobi-card-name">Postres</div>
+        <div class="tobi-card-desc">Flanes, mousses, budines y clásicos de la pastelería argentina con toque artesanal.</div>
+        <span class="tobi-card-badge">A pedido</span>
+      </div>
+      <div class="tobi-card">
+        <span class="tobi-card-num">05</span>
+        <span class="tobi-card-icon">🍪</span>
+        <div class="tobi-card-name">Merengues & Cookies</div>
+        <div class="tobi-card-desc">Merengues artesanales y galletitas caseras. Perfectos para mesas de dulces.</div>
+        <span class="tobi-card-badge">A pedido</span>
+      </div>
+      <div class="tobi-card especial">
+        <span style="font-size:32px;">✨</span>
+        <div class="tobi-card-name">¿Algo especial?</div>
+        <div class="tobi-card-desc">Pedidos personalizados, temáticos o para eventos únicos.</div>
+        <button class="tobi-btn" style="font-size:10px; padding:10px 20px; margin-top:4px;" onclick="sendPrompt('Quiero hacer un pedido especial personalizado en pasteles y postres tobi')">Consultanos ↗</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="tobi-amor">
+    <div class="tobi-amor-icons">
+      <div class="tobi-amor-item"><span>🫶</span><span>Con amor</span></div>
+      <div class="tobi-amor-item"><span>🌾</span><span>Artesanal</span></div>
+      <div class="tobi-amor-item"><span>✨</span><span>Único</span></div>
+      <div class="tobi-amor-item"><span>📦</span><span>A pedido</span></div>
+      <div class="tobi-amor-item"><span>📍</span><span>Chaco, Rcia</span></div>
+    </div>
+    <h3>"Cada preparación lleva un pedacito de corazón"</h3>
+  </div>
+
+  <div class="tobi-pedido">
+    <div class="tobi-pedido-inner">
+      <div>
+        <h3>¿Cómo hacer<br><em>tu pedido?</em></h3>
+        <p>Escribinos por Instagram con al menos 48hs de anticipación.<br>Te asesoramos y preparamos todo con dedicación y cariño.</p>
+      </div>
+      <div class="tobi-chips">
+        <div class="tobi-chip">📱 Instagram</div>
+        <div class="tobi-chip">⏰ 48hs antes</div>
+        <div class="tobi-chip">📍 Chaco, Rcia</div>
+        <div class="tobi-chip">💛 Artesanal</div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="tobi-footer">
+    <div class="tobi-footer-logo">pasteles & postres tobi</div>
+    <div class="tobi-footer-tagline">Hecho con amor desde Resistencia</div>
+    <div class="tobi-footer-handle">@pasteles_y_postres_tobi</div>
+  </footer>
+  </div>
+
+  <!-- ═══════════ PÁGINA MENÚ ═══════════ -->
+  <div id="page-menu" class="tobi-page">
+    <div class="menu-wrap">
+
+      <div class="menu-titulo">
+        <h2>Nuestro <em>menú</em></h2>
+        <p>Todo elaborado a mano · a pedido · Chaco, Resistencia</p>
+      </div>
+
+      <div class="menu-sec">
+        <div class="menu-sec-head"><span>✦ &nbsp; Dulces estrella</span></div>
+        <div class="menu-row"><span class="menu-name">Brownie clásico</span><span class="menu-dots"></span><span class="menu-price">$24.000</span></div>
+        <div class="menu-row"><span class="menu-name">Brownie de limón</span><span class="menu-dots"></span><span class="menu-price">$12.000</span></div>
+        <div class="menu-row"><span class="menu-name">Brownie de limón con frutos rojos</span><span class="menu-dots"></span><span class="menu-price">$18.000</span></div>
+        <div class="menu-row"><span class="menu-name">Brownie cheesecake</span><span class="menu-note">&nbsp;[base brownie con cobertura de queso]</span><span class="menu-dots"></span><span class="menu-price">$17.000</span></div>
+        <div class="menu-row"><span class="menu-name">Lemon pie</span><span class="menu-dots"></span><span class="menu-price">$13.500</span></div>
+        <div class="menu-row"><span class="menu-name">Macaron</span><span class="menu-note">&nbsp;[precio por 12 unidades]</span><span class="menu-dots"></span><span class="menu-price">$7.500</span></div>
+      </div>
+
+      <div class="menu-wave"></div>
+
+      <div class="menu-sec">
+        <div class="menu-sec-head"><span>◇ &nbsp; Cheesecakes</span></div>
+        <div class="menu-row"><span class="menu-name">Cheesecake de maracuyá</span><span class="menu-dots"></span><span class="menu-price">$28.000</span></div>
+        <div class="menu-row"><span class="menu-name">Cheesecake de frutos rojos</span><span class="menu-dots"></span><span class="menu-price">$28.000</span></div>
+        <div class="menu-row"><span class="menu-name">Cheesecake de frutilla</span><span class="menu-dots"></span><span class="menu-price">$26.000</span></div>
+      </div>
+
+      <div class="menu-wave"></div>
+
+      <div class="menu-sec">
+        <div class="menu-sec-head"><span>◈ &nbsp; Tortas shots</span></div>
+        <div class="menu-subnote">[ precio equivale a 10 unidades ]</div>
+        <div class="menu-row"><span class="menu-name">Shot de marquis</span><span class="menu-dots"></span><span class="menu-price">$18.000</span></div>
+        <div class="menu-row"><span class="menu-name">Shot de lemon pie</span><span class="menu-dots"></span><span class="menu-price">$13.000</span></div>
+        <div class="menu-row"><span class="menu-name">Shot de cheesecake de maracuyá</span><span class="menu-dots"></span><span class="menu-price">$17.000</span></div>
+        <div class="menu-row"><span class="menu-name">Shot de cheesecake de frutos rojos</span><span class="menu-dots"></span><span class="menu-price">$17.000</span></div>
+        <div class="menu-row"><span class="menu-name">Shot de cheesecake de frutilla</span><span class="menu-dots"></span><span class="menu-price">$17.000</span></div>
+      </div>
+
+      <div class="menu-wave"></div>
+
+      <div class="menu-sec">
+        <div class="menu-sec-head"><span>◉ &nbsp; Budines artesanales</span></div>
+        <div class="menu-two-col">
+          <div class="menu-row"><span class="menu-name">Limón</span><span class="menu-dots"></span><span class="menu-price">$2.000</span></div>
+          <div class="menu-row"><span class="menu-name">Limón con frutos rojos</span><span class="menu-dots"></span><span class="menu-price">$3.000</span></div>
+          <div class="menu-row"><span class="menu-name">Marmolado</span><span class="menu-dots"></span><span class="menu-price">$2.000</span></div>
+          <div class="menu-row"><span class="menu-name">Chocolate</span><span class="menu-dots"></span><span class="menu-price">$3.000</span></div>
+          <div class="menu-row"><span class="menu-name">Vainilla</span><span class="menu-dots"></span><span class="menu-price">$2.000</span></div>
+          <div class="menu-row"><span class="menu-name">Vainilla con frutos rojos</span><span class="menu-dots"></span><span class="menu-price">$3.000</span></div>
+          <div class="menu-row"><span class="menu-name">Vainilla con fruta abrillantada</span><span class="menu-dots"></span><span class="menu-price">$2.000</span></div>
+          <div class="menu-row"><span class="menu-name">Vainilla con nueces</span><span class="menu-dots"></span><span class="menu-price">$3.000</span></div>
+        </div>
+      </div>
+
+      <div class="menu-wave"></div>
+
+      <div class="menu-sec">
+        <div class="menu-sec-head"><span>❖ &nbsp; Pastafrola</span></div>
+        <div class="menu-row"><span class="menu-name">De batata</span><span class="menu-dots"></span><span class="menu-price">$19.000</span></div>
+        <div class="menu-row"><span class="menu-name">De membrillo</span><span class="menu-dots"></span><span class="menu-price">$19.000</span></div>
+        <div class="menu-row"><span class="menu-name">De dulce de leche</span><span class="menu-dots"></span><span class="menu-price">$20.000</span></div>
+      </div>
+
+      <div class="menu-wave"></div>
+
+      <div class="menu-sec">
+        <div class="menu-sec-head"><span>◎ &nbsp; Mermeladas artesanales</span></div>
+        <div class="menu-two-col">
+          <div class="menu-row"><span class="menu-name">Manzana con cítricos</span><span class="menu-note">&nbsp;[limón, naranja, pomelo]</span><span class="menu-dots"></span><span class="menu-price">$7.500</span></div>
+          <div class="menu-row"><span class="menu-name">Frutilla</span><span class="menu-dots"></span><span class="menu-price">$7.000</span></div>
+          <div class="menu-row"><span class="menu-name">Mora</span><span class="menu-note">&nbsp;[según época]</span><span class="menu-dots"></span><span class="menu-price-ask">consultar precio</span></div>
+          <div class="menu-row"><span class="menu-name">Naranja</span><span class="menu-dots"></span><span class="menu-price">$7.000</span></div>
+        </div>
+      </div>
+
+      <div class="menu-cta">
+        <div>
+          <p>"¿Te quedaste con ganas de algo?"</p>
+          <span>Escribinos y armamos tu pedido a medida · 48hs de anticipación</span>
+        </div>
+        <a class="tobi-btn-wa" href="https://wa.me/5493624206008" target="_blank" style="white-space:nowrap;">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width:16px;height:16px;fill:white;flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.532 5.862L.057 23.486a.75.75 0 0 0 .916.932l5.803-1.498A11.954 11.954 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.713 9.713 0 0 1-4.953-1.355l-.355-.212-3.683.95.98-3.574-.232-.368A9.712 9.712 0 0 1 2.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>
+          Realizar pedido
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function showPage(pageId, clickedLink) {
+    document.querySelectorAll('.tobi-page').forEach(function(p) {
+      p.classList.remove('active');
+    });
+    document.getElementById('page-' + pageId).classList.add('active');
+    document.querySelectorAll('.tobi-nav-links a').forEach(function(a) {
+      a.classList.remove('active');
+    });
+    if (clickedLink) clickedLink.classList.add('active');
+    window.scrollTo(0, 0);
+  }
+</script>
